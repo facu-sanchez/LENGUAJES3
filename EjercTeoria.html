@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica Teoría de DOM JS - Dark Mode</title>
+    
+    <style>
+        /* Importo la fuente Quicksand desde Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #0f172a; /* Fondo principal oscuro */
+            color: #e2e8f0; /* Texto claro */
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            color: #f8fafc;
+            font-weight: 700;
+        }
+
+        .contenedor-seccion {
+            background: #1e293b; /* Fondo de los contenedores */
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+            border: 1px solid #334155;
+        }
+
+        .ejercicio {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 16px;
+            background-color: #3b82f6; /* Azul moderno */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Estilo para el input del formulario en modo oscuro */
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Quicksand', sans-serif;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .caja-base {
+            padding: 20px;
+            background-color: #334155;
+            border: 2px dashed #64748b;
+            color: #cbd5e1;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .caja-activa {
+            background-color: #10b981; /* Verde esmeralda */
+            color: white;
+            border: 2px solid #059669;
+            transform: scale(1.02);
+            font-weight: 700;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        #contenedor-tarjetas {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tarjeta {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 15px;
+            width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+        }
+
+        .tarjeta img {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .precio {
+            color: #34d399; /* Verde claro vibrante */
+            font-weight: 700;
+            font-size: 1.3em;
+            margin: 10px 0 0 0;
+        }
+
+        #lista-nombres li {
+            margin-bottom: 5px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Prácticas de JavaScript</h1>
+
+    <div class="contenedor-seccion">
+        <h2>Parte 1: Arrays (Ver en Consola)</h2>
+        <button id="btn-ejecutar-arrays" class="btn-primario">Ejecutar Pruebas de Arrays</button>
+    </div>
+
+    <div class="contenedor-seccion">
+        <h2>Parte 2: Manipulación del DOM</h2>
+
+        <div class="ejercicio">
+            <h3>1. Lista dinámica</h3>
+            <button id="btn-lista">Mostrar lista de nombres</button>
+            <ul id="lista-nombres"></ul>
+        </div>
+
+        <div class="ejercicio">
+            <h3>2. Modificar contenido por ID</h3>
+            <p id="texto-objetivo">Texto original hola hola 123 123 123 123</p>
+            <button id="btn-modificar-texto">Cambiar Texto</button>
+        </div>
+
+        <div class="ejercicio">
+            <h3>3. Agregar/Quitar Clases (Toggle)</h3>
+            <div id="caja-interactiva" class="caja-base">
+                click para activar
+            </div>
+        </div>
+
+        <div class="ejercicio">
+            <h3>4. Formulario dinámico</h3>
+            <form id="formulario-datos">
+                <input type="text" id="input-nuevo-dato" placeholder="Escribí algo...">
+                <button type="submit">Guardar</button>
+            </form>
+            <p>Array en memoria: <span id="salida-array">[]</span></p>
+        </div>
+
+        <div class="ejercicio">
+            <h3>5. Tarjetas de Productos</h3>
+            <button id="btn-generar-tarjetas">Cargar Catálogo</button>
+            <div id="contenedor-tarjetas"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Arrays
+        document.getElementById('btn-ejecutar-arrays').addEventListener('click', () => {
+            const arrNumeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const pares = arrNumeros.filter(num => num % 2 === 0);
+            console.log("Números Pares:", pares);
+
+            const arrConDuplicados = [10, 10, 20, 30, 30, 40, 50, 50];
+            const sinDuplicados = [...new Set(arrConDuplicados)];
+            console.log("Sin duplicados:", sinDuplicados);
+
+            const arrNombres = ["Lautaro", "Santi", "Anto", "Juan", "Lu"];
+            const nombresOrdenados = arrNombres.slice().sort(); 
+            console.log("Nombres ordenados:", nombresOrdenados);
+
+            const arrPrecios = [15000, 8500, 25500];
+            const totalSuma = arrPrecios.reduce((acumulador, num) => acumulador + num, 0);
+            console.log("Suma total:", totalSuma);
+
+            const marcas = ["Oreo", "Chocolinas", "Pepitos"];
+            const indice = marcas.indexOf("Pepitos");
+            console.log("Índice buscado:", indice);
+        });
+
+        // Dom
+        document.getElementById('btn-lista').addEventListener('click', () => {
+            const nombres = ["Santi", "Lucas", "Juan", "Lautaro"];
+            const ul = document.getElementById('lista-nombres');
+            
+            ul.innerHTML = ""; 
+            
+            nombres.forEach(nombre => {
+                const li = document.createElement('li');
+                li.textContent = nombre;
+                ul.appendChild(li);
+            });
+        });
+
+        // modificar contenido por ID
+        document.getElementById('btn-modificar-texto').addEventListener('click', () => {
+            const parrafo = document.getElementById('texto-objetivo');
+            parrafo.innerText = "cambiado chau chau 456 456 456 456";
+            parrafo.style.color = "#60a5fa"; // Azul más claro para que resalte en el fondo oscuro
+        });
+
+        // agregar o quitar clases
+        document.getElementById('caja-interactiva').addEventListener('click', function() {
+            this.classList.toggle('caja-activa');      
+            
+            if (this.classList.contains('caja-activa')) {     
+                this.innerText = "click para desactivar";
+            } else {
+                this.innerText = "click para activar";
+            }
+        });
+
+        // formulario dinámico
+        const datosGuardados = [];
+        const formulario = document.getElementById('formulario-datos');
+
+        formulario.addEventListener('submit', (evento) => {
+            evento.preventDefault(); 
+            
+            const input = document.getElementById('input-nuevo-dato');
+            const valor = input.value.trim(); 
+            
+            if (valor !== "") {
+                datosGuardados.push(valor); 
+                document.getElementById('salida-array').innerText = JSON.stringify(datosGuardados); 
+                input.value = ""; 
+            }
+        });
+
+        // Generación de tarjetas
+        document.getElementById('btn-generar-tarjetas').addEventListener('click', () => {
+            const productos = [
+                { 
+                    nombre: "Teclado Mecánico 75%", 
+                    precio: 104000, 
+                    img: "https://noaweb.com.ar/wp-content/uploads/2026/03/17748830300d04eea3d94c4823df60c5331d2a67a3.jpg" 
+                },
+                { 
+                    nombre: "Mouse Inalámbrico", 
+                    precio: 47100, 
+                    img: "https://spacegamer.com.ar/img/Public/1058/19245-producto-1.jpg" 
+                },
+                { 
+                    nombre: "Monitor 27 pulgadas curvo", 
+                    precio: 165000, 
+                    img: "https://www.gamerspoint.com.ar/wp-content/uploads/Monitor-Samsung-27-Curvo-F390-60hz-1920-X-1080.png" 
+                }
+            ];
+
+            const contenedor = document.getElementById('contenedor-tarjetas');
+            contenedor.innerHTML = ""; 
+            
+            productos.forEach(prod => {
+                const tarjetaHTML = `
+                    <div class="tarjeta">
+                        <img src="${prod.img}" alt="${prod.nombre}">
+                        <h4>${prod.nombre}</h4>
+                        <p class="precio">$${prod.precio.toLocaleString('es-AR')}</p>
+                    </div>
+                `;
+                contenedor.innerHTML += tarjetaHTML;
+            });
+        });
+    </script>
+</body>
+</html>
