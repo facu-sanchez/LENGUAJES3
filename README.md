@@ -22,10 +22,12 @@ Repositorio con los desarrollos y trabajos prácticos de la materia Lenguajes II
 * **Dependencias:** Ninguna.
 
 ### tp7: Buscador de Personajes (Rick and Morty API)
-* **Archivos:** `index.html`, `styles.css`, `script.js`
+* **Carpeta del proyecto:** `TP7-rick-y-morty/`
+* **Archivos incluidos:** `index.html`, `styles.css`, `script.js`
 * **Descripción:** Aplicación web interactiva que consume una API externa para buscar y mostrar tarjetas de personajes por nombre o ID.
 * **Dependencias requeridas:**
   * **Bootstrap 5.3.0** (Vía CDN - Para estilos y sistema de grilla).
   * **jQuery 3.7.1** (Vía CDN - Para llamadas AJAX y eventos).
   * **Google Fonts** (Tipografías *Bangers* y *Roboto*).
   * **Rick and Morty API** (`https://rickandmortyapi.com/`).
+* **Sitio web en vivo:** [Ver Buscador de Rick and Morty](https://facu-sanchez.github.io/LENGUAJES3/TP7-rick-y-morty/)
