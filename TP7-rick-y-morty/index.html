@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--
+    DOCTYPE le indica al navegador que este documento usa HTML5.
+    Sin esta declaración, el navegador entra en "quirks mode"
+    y puede renderizar la página de forma incorrecta.
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <!--
+        charset="UTF-8": define la codificación de caracteres.
+        Permite mostrar tildes, ñ y símbolos especiales correctamente.
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        viewport: hace que la página sea responsive (adaptable a distintos tamaños de pantalla).
+        width=device-width → el ancho se adapta al dispositivo.
+        initial-scale=1.0 → sin zoom inicial en móviles.
+    -->
+
+    <title>Buscador de Personajes - Rick and Morty</title>
+
+    <!--
+        Bootstrap 5: framework CSS que provee clases utilitarias (grid, colores,
+        espaciado, componentes como botones, spinners, cards, etc.).
+        Se carga desde un CDN (Content Delivery Network) sin necesidad de descargarlo.
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--
+        Google Fonts: importa dos tipografías externas.
+        - Bangers: estilo cómic, usada en títulos para el look de Rick and Morty.
+        - Roboto: tipografía moderna y legible para el cuerpo del texto.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!--
+        Hoja de estilos propia del proyecto.
+        Siempre se coloca DESPUÉS de Bootstrap para poder sobrescribir sus estilos.
+    -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!--
+        HEADER: zona superior de la página.
+        Las clases de Bootstrap aplicadas:
+        - text-center → centra el contenido horizontalmente.
+        - py-5 → padding (relleno) vertical de 3rem arriba y abajo.
+        La clase "rm-header" es propia y está definida en styles.css.
+    -->
+    <header class="rm-header text-center py-5">
+
+        <!--
+            Elemento decorativo: el anillo de portal animado.
+            No tiene contenido propio; su apariencia completa se define
+            en CSS usando propiedades como border-radius, box-shadow y @keyframes.
+            - mx-auto → lo centra horizontalmente (margin auto en eje X).
+            - mb-3 → margen inferior de 1rem.
+        -->
+        <div class="portal-ring mx-auto mb-3"></div>
+
+        <!-- Título principal de la página -->
+        <h1 class="titulo-principal">Buscador de Personajes</h1>
+
+        <!--
+            &mdash; es una entidad HTML que representa el guión largo —.
+            Se usan entidades para caracteres especiales que podrían
+            confundirse con código HTML.
+        -->
+        <p class="subtitulo">Rick and Morty Universe &mdash; API Explorer</p>
+    </header>
+
+    <!--
+        MAIN: contenido principal de la página.
+        - container → clase Bootstrap que centra el contenido y le da un ancho máximo.
+        - py-5 → padding vertical.
+    -->
+    <main class="container py-5">
+
+        <!--
+            Sistema de GRILLA de Bootstrap (Grid System):
+            Bootstrap divide la pantalla en 12 columnas.
+            - row → fila del grid.
+            - justify-content-center → centra los elementos hijos en la fila.
+            - mb-5 → margen inferior.
+        -->
+        <div class="row justify-content-center mb-5">
+
+            <!--
+                col-md-6 → esta columna ocupa 6 de las 12 columnas (la mitad del ancho)
+                pero SOLO en pantallas medianas o más grandes (≥768px).
+                En pantallas pequeñas ocupa el 100% del ancho automáticamente.
+            -->
+            <div class="col-md-6">
+
+                <!--
+                    input-group: componente Bootstrap que une un input con un botón
+                    visualmente, sin espacio entre ellos.
+                    - shadow-sm → sombra pequeña para dar profundidad.
+                -->
+                <div class="input-group shadow-sm">
+
+                    <!--
+                        Campo de texto donde el usuario escribe el nombre o ID.
+                        Atributos importantes:
+                        - id="busqueda" → identificador único; JavaScript lo usa para
+                          obtener el valor con getElementById('busqueda').
+                        - type="text" → campo de texto libre.
+                        - placeholder → texto guía que desaparece al escribir.
+                        - aria-label → mejora la accesibilidad para lectores de pantalla.
+                        - form-control → clase Bootstrap que estiliza el input.
+                    -->
+                    <input
+                        type="text"
+                        id="busqueda"
+                        class="form-control input-busqueda"
+                        placeholder="Ingresá un nombre o un ID..."
+                        aria-label="Buscar personaje"
+                    >
+
+                    <!--
+                        Botón de búsqueda.
+                        - id="btnBuscar" → JavaScript escucha el clic sobre este elemento.
+                        - btn → clase base Bootstrap para botones.
+                        - btn-buscar → clase propia definida en styles.css.
+                    -->
+                    <button class="btn btn-buscar" id="btnBuscar">Buscar</button>
+                </div>
+
+                <!-- Texto de ayuda debajo del buscador -->
+                <p class="hint-text mt-2 text-center">
+                    <!--
+                        &nbsp; es un espacio en blanco que no se colapsa.
+                        Se usa para separar visualmente elementos en línea.
+                    -->
+                    Ejemplo: <strong>Rick</strong> &nbsp;|&nbsp; <strong>1</strong>
+                </p>
+            </div>
+        </div>
+
+        <!--
+            DIV RESULTADO: aquí JavaScript inyectará dinámicamente
+            la card del personaje (o los mensajes de error).
+            Empieza vacío a propósito; su contenido cambia en tiempo real
+            usando la propiedad innerHTML desde script.js.
+            El id="resultado" es el punto de anclaje que usa JavaScript.
+        -->
+        <div id="resultado" class="row justify-content-center"></div>
+    </main>
+
+    <!-- Pie de página con crédito a la API utilizada -->
+    <footer class="rm-footer text-center py-3">
+        <!-- target="_blank" abre el enlace en una pestaña nueva del navegador -->
+        <small>Datos provistos por <a href="https://rickandmortyapi.com" target="_blank">rickandmortyapi.com</a></small>
+    </footer>
+
+    <!--
+        Los scripts se colocan al FINAL del body, justo antes de la etiqueta de cierre del body.
+        Razón: el navegador parsea el HTML de arriba hacia abajo. Si los scripts
+        estuvieran en el <head>, intentarían acceder a elementos del DOM que
+        todavía no fueron creados, produciendo errores.
+
+        Orden de carga:
+        1. Bootstrap JS (necesario para componentes interactivos de Bootstrap).
+        2. jQuery (nuestra biblioteca auxiliar; script.js la puede usar).
+        3. script.js (nuestro código; debe ir último porque depende de los anteriores).
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
