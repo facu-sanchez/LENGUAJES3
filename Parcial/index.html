@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscripción al curso</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- script externo y defer para ejecutarse despues de cargar el dom -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <main class="tarjeta">
+    <header class="encabezado">
+      <p class="etiqueta">Formulario de inscripcion</p>
+      <h1>Inscripción al curso</h1>
+      <p class="subtitulo">Completa tus datos para registrarte</p>
+    </header>
+
+    <!-- formulario de inscripcion-->
+    <form id="formulario" novalidate>
+
+      <!-- campo nombre y apellido-->
+      <div class="campo">
+        <label for="nombre">Nombre y Apellido</label>
+        <input type="text" id="nombre" placeholder="Ej: Facundo Perez">
+        <span class="error" id="errornombre"></span>
+      </div>
+
+      <!--campo dni-->
+      <div class="campo">
+        <label for="dni">DNI</label>
+        <input type="text" id="dni" placeholder="Ej: 40123456" maxlength="8">
+        <span class="error" id="errordni"></span>
+      </div>
+
+      <!--fecha de nacimiento-->
+      <div class="campo">
+        <label for="fecha">Fecha de nacimiento</label>
+        <input type="date" id="fecha">
+        <span class="error" id="errorfecha"></span>
+      </div>
+
+      <!-- boton de envio del formulario-->
+      <button type="button" id="botonenviar" class="boton boton-primario">Enviar</button>
+
+      <!-- mensaje de resultado -->
+      <p id="resultado" class="resultado"></p>
+    </form>
+
+    <!-- preguntas progresivas oculta hasta validar el formulario -->
+    <section id="seccionpreguntas" class="preguntas">
+      <h2>Preguntas adicionales</h2>
+      <p class="subtitulo">Responde  tres preguntas para completar tu perfil</p>
+      <button type="button" id="botonpreguntas" class="boton boton-secundario">Preguntas</button>
+      <!-- muestra las respuestas en el dom -->
+      <div id="respuestas" class="respuestas"></div>
+    </section>
+
+  </main>
+
+</body>
+</html>

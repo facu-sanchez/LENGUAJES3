@@ -1,0 +1,206 @@
+/* fuentes externas */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap');
+
+:root {
+  --tinta: rgb(5, 5, 56);
+  --texto: gray;
+  --fondo: rgba(237, 234, 227, 0.803);
+  --tarjetafondo: white;
+  --acento: darkgreen;
+  --acentohover: #245449;
+  --rojo:  darkred;
+  --verde: green;
+  --borde: #d8dcd5;
+}
+
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* centra la pagina */
+body {
+  font-family: 'Outfit', sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(47, 107, 94, 0.08), transparent 45%),
+    var(--fondo);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* tarjeta que contiene el formulario */
+.tarjeta {
+  background: var(--tarjetafondo);
+  width: 100%;
+  max-width: 460px;
+  padding: 40px;
+  border-radius: 18px;
+  border: 1px solid var(--borde);
+  box-shadow: 0 24px 60px -28px rgba(27, 36, 48, 0.35);
+}
+
+/* encabezado */
+.encabezado {
+  margin-bottom: 28px;
+}
+
+.etiqueta {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--acento);
+  margin-bottom: 8px;
+}
+
+.encabezado h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--tinta);
+  line-height: 1.1;
+}
+
+.subtitulo {
+  font-size: 0.92rem;
+  color: var(--texto);
+  margin-top: 6px;
+}
+
+.campo {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--tinta);
+  margin-bottom: 6px;
+}
+
+.campo input {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 11px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #fbfcfa;
+  color: var(--tinta);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo input:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(47, 107, 94, 0.15);
+}
+
+/* mensajes de error en rojo debajo del campo */
+.error {
+  color: var(--rojo);
+  font-size: 0.8rem;
+  margin-top: 5px;
+  min-height: 1rem;
+}
+
+/* botones diferenciados del texto normal */
+.boton {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.boton:active {
+  transform: translateY(1px);
+}
+
+/* boton principal de envio */
+.boton-primario {
+  width: 100%;
+  margin-top: 8px;
+  background: var(--acento);
+  color: #ffffff;
+}
+
+.boton-primario:hover {
+  background: var(--acentohover);
+}
+
+/* boton secundario de preguntas */
+.boton-secundario {
+  background: transparent;
+  color: var(--acento);
+  border: 1.5px solid var(--acento);
+}
+
+.boton-secundario:hover {
+  background: var(--acento);
+  color: #ffffff;
+}
+
+/* mensaje general de resultado */
+.resultado {
+  margin-top: 16px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-align: center;
+  min-height: 1rem;
+}
+
+/* color rojo cuando hay errores */
+.resultado.error {
+  color: var(--rojo);
+}
+
+/* color verde cuando es exitoso */
+.resultado.exito {
+  color: var(--verde);
+}
+
+/* seccion de preguntas, oculta por defecto */
+.preguntas {
+  display: none;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--borde);
+}
+
+.preguntas h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.preguntas .boton-secundario {
+  margin-top: 14px;
+}
+
+/* contenedor donde se muestran las respuestas */
+.respuestas {
+  margin-top: 16px;
+}
+
+.respuestas p {
+  background: #f3f6f1;
+  border-left: 3px solid var(--acento);
+  padding: 9px 14px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--tinta);
+}
